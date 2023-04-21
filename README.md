@@ -27,5 +27,27 @@ Enviar mediante parámetros (resultados.csv,pronosticos.csv) con sus rutas corre
 |  Equipo1 | Gana 1 | Empata | Gana 2  |Equipo2|
 | :------: | :----: | :----: | :-----: | :---: |
 
+## Entrega 2 
+
+## Alcance:
+En esta entrega los archivos de entrada difieren de la primera agregando datos de Ronda al archivo resultados.csv y Persona al archivo de pronostico.csv.
+Se debe calcular los aciertos para cada persona arrojando por pantalla el nombre del participante con la cantidad de puntos obtenidos.
+Ejemplo:
+
+Pedro: 3 puntos
+
+Juan: 5 puntos
+
+
+#### Estructura del archivo resultados.csv
+
+|Ronda |  Equipo1 | Cant. Goles 1 | Cant. Goles 3 |Equipo2|
+|:---: |  :------:| :----------:  | :----: | :-----: |
+
+
+#### Estructura del archivo pronostico.csv:
+| Participante |   Equipo1 | Gana 1 | Empata | Gana 2  |Equipo2|
+| :------: | :------: | :----: | :----: | :-----: | :---: |
+
 
 
