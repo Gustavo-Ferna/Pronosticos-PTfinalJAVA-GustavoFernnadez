@@ -53,14 +53,7 @@ public class Tp {
                        partido.setGolesEquipo2(Integer.parseInt(campos[3]));
                        partidos.add(partido); //Agrego el Partido a la colección
                        
-                        /*
-                        for (Ronda rondaColeccion:rondas){
-                               System.out.println(rondaColeccion.getNro());
-                               System.out.println(rondaColeccion.getPartidos().getEquipo1().getNombre());
-                               System.out.println(rondaColeccion.getPartidos().getEquipo2().getNombre());
-                             
-                        }
-                        */
+                     
                        }
                 
                   }
