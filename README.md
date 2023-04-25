@@ -64,18 +64,18 @@ Se debe considerar que una fase es un conjunto de rondas.
 
 Aquí se agregó una clase Ronda y también agregamos como parámetro un archivo configuración con la siguiente estructura:
 
-bd=tp (Nombre de la Base de Datos
-url=jdbc:mysql://localhost:3306/  (Servidor)
-user=root (Usuario)
-password= (Contraseña conexión base de datos)
-driver=com.mysql.cj.jdbc.Driver (driver utilizado)
-PuntosGanador=1 (Puntos por aciertos)
-PuntosExtraRonda=2 (Puntos Extra si se acierta todos los partidos de la Ronda)
-PuntosExtraFase=3 (Puntos Extra si se acierta todos los partidos una Fase)
+#### bd=tp (Nombre de la Base de Datos)
+#### url=jdbc:mysql://localhost:3306/  (Servidor donde se encuentra la Base de Datos MySql)
+#### user=root (Usuario)
+#### password= (Contraseña conexión base de datos)
+#### driver=com.mysql.cj.jdbc.Driver (driver utilizado)
+#### PuntosGanador=1 (Puntos por aciertos)
+#### PuntosExtraRonda=2 (Puntos Extra si se acierta todos los partidos de la Ronda)
+#### PuntosExtraFase=3 (Puntos Extra si se acierta todos los partidos una Fase)
 
-Resultado Final: 
+## Resultado Final: 
 
-| Participante: | Puntos Acerados | Puntos Extras X Ronda |Total Puntos|
+| Participante: | Puntos Acertados | Puntos Extras X Ronda |Total Puntos|
 | :------: | :------: | :----: | :----: |  
 
 
