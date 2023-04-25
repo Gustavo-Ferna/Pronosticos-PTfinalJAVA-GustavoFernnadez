@@ -62,7 +62,7 @@ Se suman puntos extra cuando se aciertan todos los resultados de una ronda.
 Se suman puntos extra cuando se aciertan todos los resultados de una fase
 Se debe considerar que una fase es un conjunto de rondas.
 
-Aquí se agregó una clase Ronda y también agregamos como parámetro un archivo configuración con la siguiente estructura:
+Aquí se agregó una clase Ronda y también agregamos una clase conexionBD, como parámetro un archivo configuración.txt con la siguiente estructura:
 
 #### bd=tp (Nombre de la Base de Datos)
 #### url=jdbc:mysql://localhost:3306/  (Servidor donde se encuentra la Base de Datos MySql)
