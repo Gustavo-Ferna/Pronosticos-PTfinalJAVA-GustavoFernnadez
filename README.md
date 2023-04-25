@@ -50,4 +50,41 @@ Juan: 5 puntos
 | :------: | :------: | :----: | :----: | :-----: | :---: |
 
 
+## Entrega 3 (Falta desarrollar Fase de Grupos)
+
+## Alcance:
+En esta entrega se deben poder leer los pronósticos desde una base de datos MySQL. Por
+otro lado, debe poder ser configurable la cantidad de puntos que se otorgan cuando se acierta
+un resultado (ganar, perder, empatar).
+Finalmente, se agregan 2(dos) reglas para la asignación de puntajes de los participantes:
+
+Se suman puntos extra cuando se aciertan todos los resultados de una ronda.
+Se suman puntos extra cuando se aciertan todos los resultados de una fase
+Se debe considerar que una fase es un conjunto de rondas.
+
+Aquí se agregó una clase Ronda y también agregamos como parámetro un archivo configuración con la siguiente estructura:
+
+bd=tp (Nombre de la Base de Datos
+url=jdbc:mysql://localhost:3306/  (Servidor)
+user=root (Usuario)
+password= (Contraseña conexión base de datos)
+driver=com.mysql.cj.jdbc.Driver (driver utilizado)
+PuntosGanador=1 (Puntos por aciertos)
+PuntosExtraRonda=2 (Puntos Extra si se acierta todos los partidos de la Ronda)
+PuntosExtraFase=3 (Puntos Extra si se acierta todos los partidos una Fase)
+
+Resultado Final: 
+
+| Participante: | Puntos Acerados | Puntos Extras X Ronda |Total Puntos|
+| :------: | :------: | :----: | :----: |  
+
+
+
+
+
+
+
+
+
+
 
