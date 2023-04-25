@@ -4,16 +4,18 @@
  */
 package com.mycompany.tp;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Julio
  */
 public class Ronda {
     private String nro;
-    private Partido partidos;
+    private int partidos;
 
-    public Ronda(String nro, Partido partidos) {
-        super();
+    public Ronda(String nro, int partidos) {
         this.nro = nro;
         this.partidos = partidos;
     }
@@ -22,23 +24,14 @@ public class Ronda {
         return nro;
     }
 
-    public void setNro(String nro) {
-        this.nro = nro;
-    }
-
-    public Partido getPartidos() {
+    public int getPartidos() {
         return partidos;
     }
 
-    public void setPartidos(Partido partidos) {
-        this.partidos = partidos;
-    }
+       
+   
     
     
-    public int puntos(){
-        return 0;
-        
-    }
-    
+     
     
 }

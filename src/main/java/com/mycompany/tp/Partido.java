@@ -9,17 +9,22 @@ package com.mycompany.tp;
  * @author Julio
  */
 public class Partido {
+    private String ronda;
     private Equipo equipo1 ;
     private Equipo equipo2 ;
     private int golesEquipo1;
     private int golesEquipo2;
-    
-    public Partido(Equipo equipo1, Equipo equipo2) {
-        super();
+
+    public Partido(String ronda, Equipo equipo1, Equipo equipo2) {
+        this.ronda = ronda;
         this.equipo1 = equipo1;
         this.equipo2 = equipo2;
     }
 
+    public String getRonda() {
+        return ronda;
+    }
+    
     
      public Equipo getEquipo1() {
         return equipo1;
