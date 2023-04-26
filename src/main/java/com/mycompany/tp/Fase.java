@@ -3,19 +3,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.tp;
-
-import java.util.ArrayList;
-import java.util.List;
-
+   
 /**
  *
  * @author Julio
  */
-public class Ronda {
+public class Fase {
     private String nro;
     private int partidos;
 
-    public Ronda(String nro, int partidos) {
+    public Fase(String nro, int partidos) {
+        super();
         this.nro = nro;
         this.partidos = partidos;
     }
@@ -24,9 +22,21 @@ public class Ronda {
         return nro;
     }
 
+    public void setNro(String nro) {
+        this.nro = nro;
+    }
+
     public int getPartidos() {
         return partidos;
     }
-     
+
+    public void setPartidos(int partidos) {
+        this.partidos = partidos;
+    }
+
+  
+
+    
+    
     
 }

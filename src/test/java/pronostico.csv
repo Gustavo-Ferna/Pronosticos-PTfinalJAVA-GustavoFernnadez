@@ -3,11 +3,20 @@ Mariana,Argentina,,,X,Arabia Saudita
 Mariana,Polonia,,X,,Mexico
 Mariana,Argentina,X,,,Mexico
 Mariana,Polonia,X,,,Arabia Saudita
+Mariana,Alemania,,,X,Japon
+Mariana,España,X,,,Costa Rica
+Mariana,Inglaterra,,X,,Estados Unidos
 Pedro,Argentina,,,X,Arabia Saudita
 Pedro,Polonia,,X,,Mexico
-Pedro,Argentina,X,,,Mexico
-Pedro,Polonia,X,,,Arabia Saudita
+Pedro,Argentina,,X,,Mexico
+Pedro,Polonia,,X,,Arabia Saudita
+Pedro,Alemania,X,,,Japon
+Pedro,España,X,,,Costa Rica
+Pedro,Inglaterra,X,,,Estados Unidos
 Eugenia,Argentina,,,X,Arabia Saudita
 Eugenia,Polonia,,X,,Mexico
-Eugenia,Argentina,,,X,Mexico
+Eugenia,Argentina,X,,,Mexico
 Eugenia,Polonia,X,,,Arabia Saudita
+Eugenia,Alemania,X,,,Japon
+Eugenia,España,X,,,Costa Rica
+Eugenia,Inglaterra,X,,,Estados Unidos

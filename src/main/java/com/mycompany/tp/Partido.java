@@ -14,11 +14,14 @@ public class Partido {
     private Equipo equipo2 ;
     private int golesEquipo1;
     private int golesEquipo2;
+    private String fase;
 
-    public Partido(String ronda, Equipo equipo1, Equipo equipo2) {
+    public Partido(String ronda, Equipo equipo1, Equipo equipo2,String fase) {
         this.ronda = ronda;
         this.equipo1 = equipo1;
         this.equipo2 = equipo2;
+        this.fase = fase;
+    
     }
 
     public String getRonda() {
@@ -58,6 +61,16 @@ public class Partido {
         this.golesEquipo2 = golesEquipo2;
     }
 
+    public String getFase() {
+        return fase;
+    }
+
+    public void setFase(String fase) {
+        this.fase = fase;
+    }
+
+    
+    
     public ResultadoEnum resultado(Equipo equipo){
        if (golesEquipo1 == golesEquipo2){
            return ResultadoEnum.Empate;

@@ -22,6 +22,8 @@ public class Tp {
         //Leer Resultados
              Collection<Partido> partidos = new ArrayList<Partido>();
              Collection<Ronda> rondas = new ArrayList<Ronda>();
+             Collection<Fase> fases = new ArrayList<Fase>();
+             
              Path pathConfiguracion = Paths.get(args[0]);
              List<String> lineasConfiguracion = null;
     
@@ -111,8 +113,11 @@ public class Tp {
                  }
                boolean primera = true;
                String nroronda="";
+               String nrofase="";
                String ultronda="";
-               int cantpartidos = 0;
+               String ultfase="";
+               int cantpartidosrondas = 0;
+               int cantpartidosfases = 0;
                
                for (String lineaResultado:lineasResultados ){
                   
@@ -123,28 +128,48 @@ public class Tp {
                        Equipo equipo1 = new Equipo(campos[1]);
                        Equipo equipo2 = new Equipo(campos[4]);
                        nroronda = campos[0];
+                       nrofase = campos[5];
                        if (ultronda.isEmpty())  {
                           ultronda = nroronda; }
                        else {
                           if (!nroronda.equals(ultronda)) {
-                               Ronda ronda = new Ronda(ultronda,cantpartidos);
+                               Ronda ronda = new Ronda(ultronda,cantpartidosrondas);
                                rondas.add(ronda);
-                               cantpartidos = 0;
+                               cantpartidosrondas = 0;
                                ultronda = "";
                              }       
                          
                          }
-                            cantpartidos += 1;
-                            Partido partido = new Partido(nroronda,equipo1,equipo2);
+                    
+                       if (ultfase.isEmpty())  {
+                          ultfase = nrofase; }
+                       else {
+                          if (!nrofase.equals(ultfase)) {
+                               Fase fase = new Fase(ultfase,cantpartidosfases);
+                               fases.add(fase);
+                               cantpartidosfases = 0;
+                               ultfase = "";
+                              
+                             }       
+                         
+                         }
+                         
+                            cantpartidosrondas += 1;
+                            cantpartidosfases += 1;
+                            Partido partido = new Partido(nroronda,equipo1,equipo2,nrofase);
                             partido.setGolesEquipo1(Integer.parseInt(campos[2]));
                             partido.setGolesEquipo2(Integer.parseInt(campos[3]));
                             partidos.add(partido); //Agrego el Partido a la colección
+                          
                        }
                        
                      
                   }
-                       Ronda ronda = new Ronda(ultronda,cantpartidos);
+                       Ronda ronda = new Ronda(ultronda,cantpartidosrondas);
                        rondas.add(ronda);
+                       Fase fase = new Fase(ultfase,cantpartidosfases);
+                       fases.add(fase);
+                       
                
                
                
@@ -182,20 +207,39 @@ public class Tp {
                try {
                  int puntos=0;
                  int puntosRonda=0;
-                 int partidosacertados=0;
+                 int puntosFase=0;
+                 int partidosacertadosxronda=0;
+                 int partidosacertadosxfase=0;
                  int partidosxronda=0;
+                 int partidosxfase=0;
                  String participante="";
                  ResultSet rs = st.executeQuery("select * from pronosticos order by participante");
+                 //Salida 
+                 System.out.println("-----------------------------------------------------------------------------------------------------------");
+                 System.out.println("|                              Resultado de Puntajes x Participante                                       |");
+                 System.out.println("-----------------------------------------------------------------------------------------------------------");
+                
+                 System.out.println("|    Participante   |     Aciertos    |   Puntos X Ronda   |  Puntos x Fase  |      Total de Puntos       |");
+                                                         
                  while (rs.next()){
                       if (participante.equals(rs.getString(1)) || participante.isEmpty()) {
                           participante = rs.getString(1);
                       } else {
                                       System.out.println("-----------------------------------------------------------------------------------------------------------");
-                                      System.out.println(participante + ":" + puntos + " | " + "Puntos x Ronda:" + puntosRonda + " | " + "Total:" + (puntos+puntosRonda));
+                                      //System.out.println(participante + ":" + puntos + " | " + "Puntos x Ronda:" + puntosRonda + " | " + "Puntos x Fase:" + puntosFase + " | " + "Total:" + (puntos+puntosRonda+puntosFase));
+                                      String salidaParticipante = String.format("%10s",participante);
+                                      String salidaPuntos = String.format("%20s",puntos);
+                                      String salidaRonda = String.format("%20s",puntosRonda);
+                                      String salidaFase = String.format("%20s",puntosFase );
+                                      String salidaTotal = String.format("%20s",puntos+puntosRonda+puntosFase );
+                                      String salidaCierre = String.format("%16s","|" );
+                                      System.out.println("|" + salidaParticipante  +   salidaPuntos +  salidaRonda  + salidaFase + salidaTotal + salidaCierre );
                                       participante = rs.getString(1);
                                       puntos = 0;
                                       puntosRonda = 0;
-                                      partidosacertados = 0;
+                                      puntosFase = 0;
+                                      partidosacertadosxronda = 0;
+                                      partidosacertadosxfase = 0;
                       
                       } 
                           Equipo equipo1 = new Equipo(rs.getString((2)));
@@ -231,8 +275,11 @@ public class Tp {
                                                     
                           Pronostico pronostico = new Pronostico(partido,equipo,resultado,PuntosGanador);
                           puntos += pronostico.puntos();
-                          partidosacertados += pronostico.aciertos();
+                          partidosacertadosxronda += pronostico.aciertos();
+                          partidosacertadosxfase += pronostico.aciertos();
                           
+                          
+                          //Calcula los Puntos x Ronda
                           for (Ronda rondaColleccion:rondas) {
                              if (rondaColleccion.getNro().equals(partido.getRonda())) {
                                  partidosxronda = rondaColleccion.getPartidos();
@@ -240,17 +287,43 @@ public class Tp {
                              }
                               
                           }
-                          if (partidosacertados == partidosxronda) {
+                          if (partidosacertadosxronda == partidosxronda) {
                               puntosRonda += PuntosExtraRonda;
-                              partidosacertados=0;
+                              partidosacertadosxronda=0;
                               partidosxronda = 0;
-                          }       
+                          
+                          } 
+                          
+                   
+                            //Calcula los Puntos x Fase
+                           for (Fase faseColleccion:fases) {
+                             if (faseColleccion.getNro().equals(partido.getFase())) {
+                                 partidosxfase = faseColleccion.getPartidos();
+                                 break;
+                             }
+                              
+                          }
+                          if (partidosacertadosxfase == partidosxfase) {
+                              puntosFase += PuntosExtraFase;
+                              partidosacertadosxfase=0;
+                              partidosxfase = 0;
+                          
+                          }
                      
-                 }
+                }
                  
                  System.out.println("-----------------------------------------------------------------------------------------------------------");
-                 System.out.println(participante + ":" + puntos + " | " + "Puntos x Ronda:" + puntosRonda + " | " + "Total:" + (puntos+puntosRonda));
-                      
+                 //System.out.println(participante + ":" + " Aciertos:" + puntos + " | " + "Puntos x Ronda:" + puntosRonda + " | " + "Puntos x Fase:" + puntosFase + " | " + "Total:" + (puntos+puntosRonda+puntosFase));
+                 //System.out.println("|      " + participante + "     " + "|" +  puntos + "    | " + puntosRonda + " | " + puntosFase + " | " + (puntos+puntosRonda+puntosFase) + "|");
+                 String salidaParticipante = String.format("%10s",participante);
+                 String salidaPuntos = String.format("%20s",puntos);
+                 String salidaRonda = String.format("%20s",puntosRonda);
+                 String salidaFase = String.format("%20s",puntosFase );
+                 String salidaTotal = String.format("%20s",puntos+puntosRonda+puntosFase );
+                 String salidaCierre = String.format("%16s","|" );
+                 System.out.println("|" + salidaParticipante  +   salidaPuntos +  salidaRonda  + salidaFase + salidaTotal + salidaCierre );
+                 System.out.println("-----------------------------------------------------------------------------------------------------------");
+                                                                                         
             
          
                
