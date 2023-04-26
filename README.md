@@ -50,7 +50,7 @@ Juan: 5 puntos
 | :------: | :------: | :----: | :----: | :-----: | :---: |
 
 
-## Entrega 3 (Falta desarrollar Fase de Grupos)
+## Entrega 3 
 
 ## Alcance:
 En esta entrega se deben poder leer los pronósticos desde una base de datos MySQL. Por
@@ -62,7 +62,13 @@ Se suman puntos extra cuando se aciertan todos los resultados de una ronda.
 Se suman puntos extra cuando se aciertan todos los resultados de una fase
 Se debe considerar que una fase es un conjunto de rondas.
 
-Aquí se agregó una clase Ronda y también agregamos una clase conexionBD, como parámetro un archivo configuración.txt con la siguiente estructura:
+#### Estructura del archivo resultados.csv
+
+|Ronda |  Equipo1 | Cant. Goles 1 | Cant. Goles 3 |Equipo2 | Fase |
+|:---: |  :------:| :----------:  | :----: | :-----: |  :-----: |
+
+
+Aquí se agregó una clase Ronda, clase Fase y también una clase conexionBD, como parámetro se agregó un archivo configuración.txt con la siguiente estructura:
 
 #### bd=tp (Nombre de la Base de Datos)
 #### url=jdbc:mysql://localhost:3306/  (Servidor donde se encuentra la Base de Datos MySql)
@@ -75,8 +81,8 @@ Aquí se agregó una clase Ronda y también agregamos una clase conexionBD, como
 
 ## Resultado Final: 
 
-| Participante: | Puntos Acertados | Puntos Extras X Ronda |Total Puntos|
-| :------: | :------: | :----: | :----: |  
+| Participante | Aciertos | Puntos X Ronda |  Puntos X Fase   | Total de Puntos|
+| :------: | :------: | :----: | :----: |  :----: |  
 
 
 
