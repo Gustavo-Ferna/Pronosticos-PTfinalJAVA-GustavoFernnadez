@@ -335,5 +335,5 @@ public class Tp {
                  System.out.println("|" + salidaParticipante  +   salidaPuntos +  salidaRonda  + salidaFase + salidaTotal + salidaCierre );
                  System.out.println("-----------------------------------------------------------------------------------------------------------");
              
-}
+   }
 }
