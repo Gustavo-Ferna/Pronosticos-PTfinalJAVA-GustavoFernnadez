@@ -220,14 +220,14 @@ public class Tp {
                  System.out.println("-----------------------------------------------------------------------------------------------------------");
                  System.out.println("|                              Resultado de Puntajes x Participante                                       |");
                  System.out.println("-----------------------------------------------------------------------------------------------------------");
-                
                  System.out.println("|    Participante   |     Aciertos    |   Puntos X Ronda   |  Puntos x Fase  |      Total de Puntos       |");
                  System.out.println("-----------------------------------------------------------------------------------------------------------");
                                                    
                  while (rs.next()){
-                      if (participante.equals(rs.getString(1)) || participante.isEmpty()) {
+                      if (participante.equals(rs.getString(1)) || participante.isEmpty())  {
                           participante = rs.getString(1);
                       } else {
+                                    
                                       ImprimeResultado (participante,puntos,puntosRonda,puntosFase);                                                                        
                                       participante = rs.getString(1);
                                       puntos = 0;
@@ -309,14 +309,12 @@ public class Tp {
                               puntosFase += PuntosExtraFase;
                               faseActual="";
                             }
-                    
+                         
+                           //Imprime el último Participante
+                           if (rs.isLast()) {
+                               ImprimeResultado (participante,puntos,puntosRonda,puntosFase);                                                                        
+                           }
                        }
-                 
-                 //System.out.println(participante + ":" + " Aciertos:" + puntos + " | " + "Puntos x Ronda:" + puntosRonda + " | " + "Puntos x Fase:" + puntosFase + " | " + "Total:" + (puntos+puntosRonda+puntosFase));
-                 //System.out.println("|      " + participante + "     " + "|" +  puntos + "    | " + puntosRonda + " | " + puntosFase + " | " + (puntos+puntosRonda+puntosFase) + "|");
-                 ImprimeResultado (participante,puntos,puntosRonda,puntosFase);                                                                        
-               
-         
                
            } catch (SQLException e) {
                   
