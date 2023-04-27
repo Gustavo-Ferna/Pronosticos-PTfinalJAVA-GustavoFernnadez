@@ -212,6 +212,8 @@ public class Tp {
                  int partidosacertadosxfase=0;
                  int partidosxronda=0;
                  int partidosxfase=0;
+                 String rondaActual="";
+                 String faseActual="";
                  String participante="";
                  ResultSet rs = st.executeQuery("select * from pronosticos order by participante");
                  //Imprime Encabezado Resultado
@@ -268,42 +270,47 @@ public class Tp {
                                                     
                           Pronostico pronostico = new Pronostico(partido,equipo,resultado,PuntosGanador);
                           puntos += pronostico.puntos();
-                          partidosacertadosxronda += pronostico.aciertos();
-                          partidosacertadosxfase += pronostico.aciertos();
                           
                           
                           //Calcula los Puntos x Ronda
-                          for (Ronda rondaColleccion:rondas) {
-                             if (rondaColleccion.getNro().equals(partido.getRonda())) {
-                                 partidosxronda = rondaColleccion.getPartidos();
-                                 break;
-                             }
-                              
+                          if (rondaActual.isEmpty() || !rondaActual.equals(partido.getRonda())){
+                                for (Ronda rondaColleccion:rondas) {
+                                   if (rondaColleccion.getNro().equals(partido.getRonda())) {
+                                       partidosxronda = rondaColleccion.getPartidos();
+                                       partidosacertadosxronda=0;
+                                       rondaActual = partido.getRonda();
+                                       break;
+                                   }
+
+                                }
                           }
+                          
+                          
+                          partidosacertadosxronda += pronostico.aciertos();              
                           if (partidosacertadosxronda == partidosxronda) {
                               puntosRonda += PuntosExtraRonda;
-                              partidosacertadosxronda=0;
-                              partidosxronda = 0;
-                          
+                              rondaActual="";
                           } 
                           
-                   
+                          
                             //Calcula los Puntos x Fase
+                         if (faseActual.isEmpty() || !faseActual.equals(partido.getFase())){
                            for (Fase faseColleccion:fases) {
                              if (faseColleccion.getNro().equals(partido.getFase())) {
-                                 partidosxfase = faseColleccion.getPartidos();
-                                 break;
+                                    partidosxfase = faseColleccion.getPartidos();
+                                    partidosacertadosxfase=0;
+                                    faseActual = partido.getFase();
+                                    break;
+                                  }       
                              }
-                              
                           }
-                          if (partidosacertadosxfase == partidosxfase) {
+                           partidosacertadosxfase += pronostico.aciertos();
+                           if (partidosacertadosxfase == partidosxfase) {
                               puntosFase += PuntosExtraFase;
-                              partidosacertadosxfase=0;
-                              partidosxfase = 0;
-                          
-                          }
-                     
-                }
+                              faseActual="";
+                            }
+                    
+                       }
                  
                  //System.out.println(participante + ":" + " Aciertos:" + puntos + " | " + "Puntos x Ronda:" + puntosRonda + " | " + "Puntos x Fase:" + puntosFase + " | " + "Total:" + (puntos+puntosRonda+puntosFase));
                  //System.out.println("|      " + participante + "     " + "|" +  puntos + "    | " + puntosRonda + " | " + puntosFase + " | " + (puntos+puntosRonda+puntosFase) + "|");
