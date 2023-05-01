@@ -85,6 +85,8 @@ public class Tp {
              cn.conexion();
               
             Statement st = cn.conn.createStatement();
+            Statement rt = cn.conn.createStatement();
+            
             //Crea las tablas del Sistema
             //Tabla Equipo
             //st.execute("drop table if exists equipo;"); 
@@ -215,20 +217,29 @@ public class Tp {
                  String rondaActual="";
                  String faseActual="";
                  String participante="";
+                 rt.execute("drop table if exists participantes;"); 
+                 rt.execute ("create table participantes (nombre varchar(255)," +
+                            "aciertos int,puntosxronda int,puntosxfase int)");  
+                
+                 
                  ResultSet rs = st.executeQuery("select * from pronosticos order by participante");
-                 //Imprime Encabezado Resultado
-                 System.out.println("-----------------------------------------------------------------------------------------------------------");
-                 System.out.println("|                              Resultado de Puntajes x Participante                                       |");
-                 System.out.println("-----------------------------------------------------------------------------------------------------------");
-                 System.out.println("|    Participante   |     Aciertos    |   Puntos X Ronda   |  Puntos x Fase  |      Total de Puntos       |");
-                 System.out.println("-----------------------------------------------------------------------------------------------------------");
-                                                   
-                 while (rs.next()){
+                 
+                while (rs.next()){
                       if (participante.equals(rs.getString(1)) || participante.isEmpty())  {
                           participante = rs.getString(1);
                       } else {
                                     
-                                      ImprimeResultado (participante,puntos,puntosRonda,puntosFase);                                                                        
+                                     // ImprimeResultado (participante,puntos,puntosRonda,puntosFase);                                                                        
+                                      
+                                      Participante jugador = new Participante(participante);
+                                      jugador.setAciertos(puntos);
+                                      jugador.setPuntosxfase(puntosFase);
+                                      jugador.setPuntosxronda(puntosRonda);
+                                      rt.execute("insert into participantes (nombre,aciertos,puntosxronda,puntosxfase) values " +
+                                                 "(" + "'" + jugador.getNombre() + "'" + "," + jugador.getAciertos() + "," + jugador.getPuntosxronda() + "," +
+                                                 jugador.getPuntosxfase() + ")") ;
+                                      
+                                      
                                       participante = rs.getString(1);
                                       puntos = 0;
                                       puntosRonda = 0;
@@ -310,12 +321,45 @@ public class Tp {
                               faseActual="";
                             }
                          
-                           //Imprime el último Participante
+                           //Agrega el último Participante
                            if (rs.isLast()) {
-                               ImprimeResultado (participante,puntos,puntosRonda,puntosFase);                                                                        
+                                      Participante jugador = new Participante(participante);
+                                      jugador.setAciertos(puntos);
+                                      jugador.setPuntosxfase(puntosFase);
+                                      jugador.setPuntosxronda(puntosRonda);
+                                      rt.execute("insert into participantes (nombre,aciertos,puntosxronda,puntosxfase) values " +
+                                                 "(" + "'" + jugador.getNombre() + "'" + "," + jugador.getAciertos() + "," + jugador.getPuntosxronda() + "," +
+                                                 jugador.getPuntosxfase() + ")") ;
+                              
                            }
-                       }
                
+                
+                }
+                
+                 //Muestra el Resultado
+                 rs = st.executeQuery ("select nombre,aciertos,puntosxronda,puntosxfase,sum(aciertos+puntosxronda+puntosxfase) as total " +
+                                                 " from participantes " +
+                                                 " group by nombre,aciertos,puntosxronda,puntosxfase" +
+                                                 " order by 5 desc,1"  );
+                             
+               
+                 System.out.println("-----------------------------------------------------------------------------------------------------------");
+                 System.out.println("|                              Ranking Participantes x Total de Puntos Obtenidos                          |");
+                 System.out.println("-----------------------------------------------------------------------------------------------------------");
+                 System.out.println("|    Participante   |     Aciertos    |   Puntos X Ronda   |  Puntos x Fase  |      Total de Puntos       |");
+                 System.out.println("-----------------------------------------------------------------------------------------------------------");
+                 while (rs.next()) {
+                     String salidaParticipante = String.format("%10s",rs.getString("nombre"));
+                     String salidaPuntos = String.format("%20s",rs.getString("aciertos"));
+                     String salidaRonda = String.format("%20s",rs.getString("puntosxronda"));
+                     String salidaFase = String.format("%20s",rs.getString("puntosxfase"));
+                     String salidaTotal = String.format("%20s",rs.getString("total"));
+                     String salidaCierre = String.format("%16s","|" );
+                     System.out.println("|" + salidaParticipante  +   salidaPuntos +  salidaRonda  + salidaFase + salidaTotal + salidaCierre );
+                     System.out.println("-----------------------------------------------------------------------------------------------------------");
+                 }
+                
+               cn.conexion().close();
            } catch (SQLException e) {
                   
                System.out.println("No se Pudo Leer la Tabla Pronósticos");
@@ -325,20 +369,11 @@ public class Tp {
            }
                
         
-        
-    }
-
-  public static void ImprimeResultado(String participante,int puntos, int puntosRonda,int  puntosFase) {
-                 //System.out.println(participante + ":" + " Aciertos:" + puntos + " | " + "Puntos x Ronda:" + puntosRonda + " | " + "Puntos x Fase:" + puntosFase + " | " + "Total:" + (puntos+puntosRonda+puntosFase));
-                 //System.out.println("|      " + participante + "     " + "|" +  puntos + "    | " + puntosRonda + " | " + puntosFase + " | " + (puntos+puntosRonda+puntosFase) + "|");
-                 String salidaParticipante = String.format("%10s",participante);
-                 String salidaPuntos = String.format("%20s",puntos);
-                 String salidaRonda = String.format("%20s",puntosRonda);
-                 String salidaFase = String.format("%20s",puntosFase );
-                 String salidaTotal = String.format("%20s",puntos+puntosRonda+puntosFase );
-                 String salidaCierre = String.format("%16s","|" );
-                 System.out.println("|" + salidaParticipante  +   salidaPuntos +  salidaRonda  + salidaFase + salidaTotal + salidaCierre );
-                 System.out.println("-----------------------------------------------------------------------------------------------------------");
-             
+     }
+           
    }
-}
+      
+      
+      
+      
+
