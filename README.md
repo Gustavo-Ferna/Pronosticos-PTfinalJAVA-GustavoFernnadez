@@ -72,7 +72,7 @@ Se debe considerar que una fase es un conjunto de rondas.
 |:---: |  :------:| :----------:  | :----: | :-----: |  :-----: |
 
 
-Aquí se agregó una clase Ronda, clase Fase y también una clase conexionBD, como parámetro se agregó un archivo configuración.txt con la siguiente estructura:
+Aquí se agregó una clase Ronda, clase Fase y también una clase conexionBD, como parámetro se agregó un archivo configuración.csv con la siguiente estructura:
 
 #### bd=tp (Nombre de la Base de Datos)
 #### url=jdbc:mysql://localhost:3306/  (Servidor donde se encuentra la Base de Datos MySql)
