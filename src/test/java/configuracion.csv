@@ -6,4 +6,3 @@ driver=com.mysql.cj.jdbc.Driver
 PuntosGanador=1
 PuntosExtraRonda=2
 PuntosExtraFase=3
-
