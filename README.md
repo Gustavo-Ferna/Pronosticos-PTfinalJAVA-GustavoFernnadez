@@ -1,7 +1,11 @@
 # Argentina Programa 4.0 - Desarrollador Java Inicial
 ## Comisión 144 
-|Alumno: Julio Shaya|
+|Grupo 12:|
 | :-------: |
+|Gustavo Enrique Fernandez|
+|Adrian Latorre|
+|Julio Shaya|
+
 
  
 
