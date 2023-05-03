@@ -19,7 +19,7 @@ public class Tp {
 
     public static void main(String[] args) throws SQLException {
         
-        //Leer Resultados
+       
              Collection<Partido> partidos = new ArrayList<Partido>();
              Collection<Ronda> rondas = new ArrayList<Ronda>();
              Collection<Fase> fases = new ArrayList<Fase>();
