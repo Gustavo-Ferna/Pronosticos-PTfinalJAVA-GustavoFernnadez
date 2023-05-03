@@ -4,8 +4,6 @@
  */
 package com.mycompany.tp;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *

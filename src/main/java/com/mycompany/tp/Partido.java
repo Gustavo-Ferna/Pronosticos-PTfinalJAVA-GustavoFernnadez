@@ -76,16 +76,16 @@ public class Partido {
            return ResultadoEnum.Empate;
        }
         
-        if (equipo.equals(equipo1)) {
+        if (equipo.getNombre().equals(equipo1.getNombre())) {
            if (golesEquipo1 > golesEquipo2) {
                   return ResultadoEnum.Ganador;
            } else {
                return ResultadoEnum.Perdedor; }
          } else 
            if (golesEquipo2 > golesEquipo1) {
-                  return ResultadoEnum.Perdedor;
+                  return ResultadoEnum.Ganador;
            } else {
-               return ResultadoEnum.Ganador; }
+               return ResultadoEnum.Perdedor; }
          }  
        }
     

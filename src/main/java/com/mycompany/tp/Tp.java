@@ -84,14 +84,10 @@ public class Tp {
              ConexionBD cn = new ConexionBD(bd,url,user,password,driver);
              cn.conexion();
               
-            Statement st = cn.conn.createStatement();
-            Statement rt = cn.conn.createStatement();
+            Statement st = cn.conn.createStatement(); //pronosticos
+            Statement rt = cn.conn.createStatement(); //participantes 
             
             //Crea las tablas del Sistema
-            //Tabla Equipo
-            //st.execute("drop table if exists equipo;"); 
-            //st.execute ("create table equipo (nombre varchar(255),descripcion varchar(255));");
-            
             //Tabla pronosticos
            
             st.execute("drop table if exists pronosticos;"); 
@@ -196,7 +192,6 @@ public class Tp {
                        primera = false;
                    } else{
                           String[] campos = regPronostico.split(",");
-                          String sql="";
                           st.execute( "insert into pronosticos (participante,equipo1,gana1,empata,gana2,equipo2)" +
                                 " values (" + "'" + campos[0] + "'" + "," + "'" + campos[1] + "'" + ","  +
                                 "'" + campos[2] + "'" + "," + "'" + campos[3] + "'" + "," + 
@@ -204,8 +199,7 @@ public class Tp {
                
                    }
                }
-               
-               //Obtenermos los pronósticos
+               //Calculo de Puntos x Participante
                try {
                  int puntos=0;
                  int puntosRonda=0;
@@ -229,8 +223,6 @@ public class Tp {
                           participante = rs.getString(1);
                       } else {
                                     
-                                     // ImprimeResultado (participante,puntos,puntosRonda,puntosFase);                                                                        
-                                      
                                       Participante jugador = new Participante(participante);
                                       jugador.setAciertos(puntos);
                                       jugador.setPuntosxfase(puntosFase);
@@ -254,30 +246,29 @@ public class Tp {
                           for (Partido partidoColeccion:partidos){
                              if (partidoColeccion.getEquipo1().getNombre().equals(equipo1.getNombre()) &&
                                   partidoColeccion.getEquipo2().getNombre().equals(equipo2.getNombre())) {
-                                      {           
                                             //Busqueda en la Coleccion que coinicidan los 2 equipos
                                             partido = partidoColeccion;
                                             break;
-                                 }
-                             }      
+                              }      
                           } 
                           Equipo equipo = null;
                           ResultadoEnum resultado = null ;
+                         //Equipo 1 Gana
                           if ("X".equals(rs.getString((3)))) {
                               equipo = equipo1;
                               resultado = ResultadoEnum.Ganador ;
-                          }
-                                 
+                            }
+                         //Empate
                           if ("X".equals(rs.getString((4)))) {
                               equipo = equipo1;
                               resultado = ResultadoEnum.Empate ;
-                          }
-                          
+                            }
+                        //Equipo 2 Gana
                           if ("X".equals(rs.getString((5)))) 
                             {
-                              equipo = equipo1;
-                              resultado = ResultadoEnum.Perdedor ;
-                          }
+                              equipo = equipo2;
+                              resultado = ResultadoEnum.Ganador ;
+                            }
                                                     
                           Pronostico pronostico = new Pronostico(partido,equipo,resultado,PuntosGanador);
                           puntos += pronostico.puntos();
